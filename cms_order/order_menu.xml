@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_order_root" name="Order" sequence="60" web_icon="static/description/icon.png"/>
+        <menuitem id="menu_order_detail_sub" name="Order" sequence="10" action="act_open_order_view"
+                  parent="menu_order_root"/>
+    </data>
+</odoo>
