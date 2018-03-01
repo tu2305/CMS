@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <record id="view_order_tree" model="ir.ui.view">
-            <field name="name">order.tree</field>
-            <field name="model">cms.order</field>
-            <field name="priority" eval="8"/>
-            <field name="arch" type="xml">
-                <tree string="Order">
-                    <field name="code"/>
-                    <field name="user_id"/>
-                    <field name="date"/>
-                </tree>
-            </field>
-        </record>
         <record id="view_order_form" model="ir.ui.view">
             <field name="name">order.form</field>
             <field name="model">cms.order</field>
@@ -25,16 +13,28 @@
                             <field name="user_id"/>
                             <field name="date"/>
                         </group>
-                        <separator string='Select your product'/>
-                        <field name='order_detail_ids'>
-                            <tree string='Product List' editable='bottom'>
-                                <field name='product_id'/>
-                                <field name='quantity'/>
-                                <field name='price'/>
-                            </tree>
-                        </field>
+                        <group>
+                            <field name="product_category_id"/>
+                            <field name="product_id"/>
+                        </group>
+                        <group string="List Order" colspan="4">
+                            <field name="order_detail_ids" nolabel="1">
+                                <tree editable="top" create="false">
+                                    <field name='product_id'/>
+                                    <field name='quantity'/>
+                                    <field name='price'/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group>
+                            <span>
+                                <button string="Choose Product" type="object"
+                                        name="choose_product_button" class="oe_highlight"/>
+                            </span>
+                        </group>
                         <group class='oe_subtotal_footer oe_right'>
-                            <field name='total_price' widget='monetary' digits='(3,0)' options="{'currency_field': '43'}"/>
+                            <field name='total_price' widget='monetary' digits='(3,0)'
+                                   options="{'currency_field': '43'}"/>
                         </group>
                     </sheet>
                     <div class="oe_chatter">
@@ -61,7 +61,7 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">cms.order</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">form</field>
             <field name="search_view_id" ref="view_order_search"/>
             <field name="domain">[]</field>
             <field name="context">{}</field>
@@ -71,12 +71,6 @@
             <field name="sequence" eval="20"/>
             <field name="view_mode">form</field>
             <field name="view_id" ref="view_order_form"/>
-        </record>
-        <record model="ir.actions.act_window.view" id="act_open_order_view_tree">
-            <field name="act_window_id" ref="act_open_order_view"/>
-            <field name="sequence" eval="10"/>
-            <field name="view_mode">tree</field>
-            <field name="view_id" ref="view_order_tree"/>
         </record>
     </data>
 </odoo>
