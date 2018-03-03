@@ -10,5 +10,3 @@ class OrderDetail(models.Model):
     product_id = fields.Many2one('cms.product', 'Product', required=True)
     quantity = fields.Integer('Quantity', required=True, default=1)
     price = fields.Integer('Price', related='product_id.price', readonly=True)
-    select = fields.Boolean('Select')
-
