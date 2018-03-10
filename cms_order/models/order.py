@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-import re, datetime
+import re, datetime, dateutil.parser
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class Order(models.Model):
@@ -9,13 +12,27 @@ class Order(models.Model):
     _inherit = 'mail.thread'
     _description = 'Order'
 
-    code = fields.Char('Code')
+    code = fields.Char('Code', compute='_compute_code', readonly=True, store=True)
     user_id = fields.Many2one('res.users', 'User', readonly=True, default=lambda self: self.env.uid)
     date = fields.Datetime('Date', required=True, readonly=True, default=lambda self: fields.datetime.now())
-    product_category_id = fields.Many2one('cms.product.category', 'Product Category')
+    product_category_id = fields.Many2one('cms.product.category', 'Product Category',
+                                          default=lambda self: self.env['cms.product.category'].search([])[0])
     product_id = fields.Many2one('cms.product', 'Product', domain="[('product_category','=',product_category_id)]")
     order_detail_ids = fields.One2many('cms.order.detail', 'order_id', 'Product(s)')
     total_price = fields.Integer('Total Price', compute='_compute_total_price')
+
+    @api.multi
+    @api.depends('date')
+    def _compute_code(self):
+        for record in self:
+            values = record.search([])
+            _logger.warning(values)
+            if not values:
+                date = dateutil.parser.parse(record.date).date()
+                date = str(date) + '-001'
+                record.code = date
+            else:
+                record.code = '000'
 
     @api.multi
     @api.depends('order_detail_ids')
@@ -26,8 +43,13 @@ class Order(models.Model):
     @api.multi
     def choose_product_button(self):
         values = []
-        products = self.env['cms.product'].search([('id', '=', self.product_id.id)])
-        for product in products:
-            product_id = {'product_id': product.id}
-            values.append(product_id)
+        if len(self.order_detail_ids) > 0:
+            for order in self.order_detail_ids:
+                if order.product_id == self.product_id:
+                    order.quantity += 1
+        else:
+            products = self.env['cms.product'].search([('id', '=', self.product_id.id)])
+            for product in products:
+                product_id = {'product_id': product.id}
+                values.append(product_id)
         self.order_detail_ids = values
