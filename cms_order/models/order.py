@@ -53,3 +53,18 @@ class Order(models.Model):
                 product_id = {'product_id': product.id}
                 values.append(product_id)
         self.order_detail_ids = values
+
+    @api.multi
+    def payment(self):
+        record = self.env['cms.order.payment'].create({'order_id': self.id})
+        logging.warning(record.id)
+        return {
+            'name': 'Payment',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'cms.order.payment',
+            'view_id': record.id,
+            'target': 'pivot',
+            'domain': []
+        }

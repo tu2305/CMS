@@ -13,6 +13,7 @@
     'depends': ['cms_product'],
     'data': [
         'views/order_view.xml',
+        'views/order_payment_view.xml',
         'order_menu.xml'
     ],
     'images': [
