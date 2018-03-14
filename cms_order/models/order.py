@@ -22,6 +22,11 @@ class Order(models.Model):
     total_price = fields.Integer('Total Price', compute='_compute_total_price')
 
     @api.multi
+    @api.onchange('product_category_id')
+    def change_product_category(self):
+        self.product_id = False
+
+    @api.multi
     @api.depends('date')
     def _compute_code(self):
         for record in self:
