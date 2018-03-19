@@ -19,23 +19,25 @@
             <field name="arch" type="xml">
                 <form string="Order">
                     <sheet>
+                        <group>
+                            <header>
+                                <field name="status" widget="statusbar"/>
+                            </header>
+                        </group>
                         <group col="4">
                             <field name="code"/>
                             <field name="user_id"/>
                             <field name="date"/>
                         </group>
-                        <group>
-                            <field name="product_category_id" widget="radio" options="{'horizontal': true}"/>
-                        </group>
-                        <group>
-                            <field name="product_id" widget="radio" options="{'horizontal': true}"/>
-                        </group>
-                        <footer>
+                        <group col="4"
+                               attrs="{'invisible':['|','|',('status','=','payment'),('status','=','paid'),('status','=','cancel')]}">
+                            <field name="product_category_id" widget="radio"/>
+                            <field name="product_id" widget="radio"/>
                             <span>
                                 <button string="Choose Product" type="object"
                                         name="choose_product_button" class="oe_highlight"/>
                             </span>
-                        </footer>
+                        </group>
                         <group string="List Order" colspan="4">
                             <field name="order_detail_ids" nolabel="1">
                                 <tree editable="false" create="false">
@@ -49,9 +51,15 @@
                                        options="{'currency_field': '43'}"/>
                             </group>
                         </group>
-                        <span>
-                            <button string="Payment" type="object" name="payment" class="oe_highlight"/>
-                        </span>
+                        <group>
+                            <span>
+                                <button string="Return" type="object" name="order" class="oe_highlight oe_right"
+                                        attrs="{'invisible':[('status','=','order')]}"/>
+                                <button string="Payment" type="object" name="payment"
+                                        class="oe_highlight oe_right"
+                                        attrs="{'invisible':[('status','=','payment')]}"/>
+                            </span>
+                        </group>
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers"/>

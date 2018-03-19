@@ -20,6 +20,8 @@ class Order(models.Model):
     product_id = fields.Many2one('cms.product', 'Product', domain="[('product_category','=',product_category_id)]")
     order_detail_ids = fields.One2many('cms.order.detail', 'order_id', 'Product(s)')
     total_price = fields.Integer('Total Price', compute='_compute_total_price')
+    status = fields.Selection([('order', 'Order'), ('payment', 'Payment'), ('paid', 'Paid'), ('cancel', 'Cancel')],
+                              default="order")
 
     @api.multi
     @api.onchange('product_category_id')
@@ -60,16 +62,9 @@ class Order(models.Model):
         self.order_detail_ids = values
 
     @api.multi
+    def order(self):
+        self.status = 'order'
+
+    @api.multi
     def payment(self):
-        record = self.env['cms.order.payment'].create({'order_id': self.id})
-        logging.warning(record.id)
-        return {
-            'name': 'Payment',
-            'type': 'ir.actions.act_window',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': 'cms.order.payment',
-            'view_id': record.id,
-            'target': 'pivot',
-            'domain': []
-        }
+        self.status = 'payment'
