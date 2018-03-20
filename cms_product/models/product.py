@@ -8,7 +8,7 @@ class ProductCategory(models.Model):
     _name = "cms.product"
     _inherit = 'mail.thread'
     _description = "Product"
-    _order = 'product_category'
+    _order = 'product_category,name'
 
     name = fields.Char('Product', required=True, track_visibility='onchange')
     product_category = fields.Many2one('cms.product.category', 'Product Category', required=True,

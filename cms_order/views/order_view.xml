@@ -8,7 +8,6 @@
             <field name="arch" type="xml">
                 <tree string="Order">
                     <field name="code"/>
-                    <field name="user_id"/>
                     <field name="date"/>
                 </tree>
             </field>
@@ -20,21 +19,45 @@
             <field name="arch" type="xml">
                 <form string="Order">
                     <sheet>
-                        <group col="4">
-                            <field name="code"/>
-                            <field name="user_id"/>
-                            <field name="date"/>
+                        <group>
+                            <header>
+                                <field name="status" widget="statusbar"/>
+                            </header>
                         </group>
-                        <separator string='Select your product'/>
-                        <field name='order_detail_ids'>
-                            <tree string='Product List' editable='bottom'>
-                                <field name='product_id'/>
-                                <field name='quantity'/>
-                                <field name='price'/>
-                            </tree>
-                        </field>
-                        <group class='oe_subtotal_footer oe_right'>
-                            <field name='total_price' widget='monetary' digits='(3,0)' options="{'currency_field': '43'}"/>
+                        <group col="6">
+                            <field name="code"/>
+                            <field name="date"/>
+                            <field name="user_id"/>
+                        </group>
+                        <group col="6" attrs="{'invisible':[('status','!=','order')]}">
+                            <field name="product_category_id" widget="radio"/>
+                            <field name="product_id" widget="radio"/>
+                            <span>
+                                <button string="Choose Product" type="object"
+                                        name="choose_product_button" class="oe_highlight"/>
+                            </span>
+                        </group>
+                        <group string="List Order" colspan="4">
+                            <field name="order_detail_ids" nolabel="1" attrs="{'readonly':[('status','!=','order')]}">
+                                <tree editable="false" create="false">
+                                    <field name='product_id'/>
+                                    <field name='quantity'/>
+                                    <field name='price'/>
+                                </tree>
+                            </field>
+                            <group class='oe_subtotal_footer oe_right'>
+                                <field name='total_price' widget='monetary' digits='(3,0)'
+                                       options="{'currency_field': '43'}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <span>
+                                <button string="Return" type="object" name="order" class="oe_highlight oe_right"
+                                        attrs="{'invisible':[('status','=','order')]}"/>
+                                <button string="Payment" type="object" name="payment"
+                                        class="oe_highlight oe_right"
+                                        attrs="{'invisible':[('status','=','payment')]}"/>
+                            </span>
                         </group>
                     </sheet>
                     <div class="oe_chatter">
