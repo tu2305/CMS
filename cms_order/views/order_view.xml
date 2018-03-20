@@ -24,13 +24,12 @@
                                 <field name="status" widget="statusbar"/>
                             </header>
                         </group>
-                        <group col="4">
+                        <group col="6">
                             <field name="code"/>
-                            <field name="user_id"/>
                             <field name="date"/>
+                            <field name="user_id"/>
                         </group>
-                        <group col="4"
-                               attrs="{'invisible':['|','|',('status','=','payment'),('status','=','paid'),('status','=','cancel')]}">
+                        <group col="6" attrs="{'invisible':[('status','!=','order')]}">
                             <field name="product_category_id" widget="radio"/>
                             <field name="product_id" widget="radio"/>
                             <span>
@@ -39,7 +38,7 @@
                             </span>
                         </group>
                         <group string="List Order" colspan="4">
-                            <field name="order_detail_ids" nolabel="1">
+                            <field name="order_detail_ids" nolabel="1" attrs="{'readonly':[('status','!=','order')]}">
                                 <tree editable="false" create="false">
                                     <field name='product_id'/>
                                     <field name='quantity'/>
