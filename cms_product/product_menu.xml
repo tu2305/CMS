@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <menuitem id="menu_product_root" name="Product" sequence="60" web_icon="static/description/icon.png"/>
-        <menuitem id="menu_product_category_sub" name="Product Category" sequence="10"
+        <menuitem id="menu_product_root" name="Product" sequence="1" web_icon="static/description/icon.png"/>
+        <menuitem id="menu_product_category_sub" name="Product Category" sequence="2"
                   action="act_open_product_category_view"
                   parent="menu_product_root"/>
-        <menuitem id="menu_product_sub" name="Product" sequence="10" action="act_open_product_view"
+        <menuitem id="menu_product_sub" name="Product" sequence="1" action="act_open_product_view"
                   parent="menu_product_root"/>
     </data>
 </odoo>

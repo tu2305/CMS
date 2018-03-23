@@ -9,4 +9,4 @@ class OrderDetail(models.Model):
     order_id = fields.Many2one('cms.order', 'Order', required=True, ondelete='cascade')
     product_id = fields.Many2one('cms.product', 'Product', required=True, readonly=True)
     quantity = fields.Integer('Quantity', required=True, default=1)
-    price = fields.Integer('Price', related='product_id.price', readonly=True)
+    price = fields.Float('Price', related='product_id.price', digits=(3, 0), readonly=True)

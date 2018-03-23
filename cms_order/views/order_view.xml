@@ -9,6 +9,7 @@
                 <tree string="Order">
                     <field name="code"/>
                     <field name="date"/>
+                    <field name="status" class="oe_highlight"/>
                 </tree>
             </field>
         </record>
@@ -24,40 +25,45 @@
                                 <field name="status" widget="statusbar"/>
                             </header>
                         </group>
-                        <group col="6">
+                        <group col="4" style="width:70%%">
                             <field name="code"/>
-                            <field name="date"/>
                             <field name="user_id"/>
+                            <field name="date"/>
                         </group>
                         <group col="6" attrs="{'invisible':[('status','!=','order')]}">
-                            <field name="product_category_id" widget="radio"/>
-                            <field name="product_id" widget="radio"/>
-                            <span>
+                            <field name="product_category_id" widget="radio" col="4"/>
+                            <field name="product_id" widget="radio" col="4"/>
+                            <span style="width:30%%">
                                 <button string="Choose Product" type="object"
                                         name="choose_product_button" class="oe_highlight"/>
                             </span>
                         </group>
-                        <group string="List Order" colspan="4">
-                            <field name="order_detail_ids" nolabel="1" attrs="{'readonly':[('status','!=','order')]}">
-                                <tree editable="false" create="false">
-                                    <field name='product_id'/>
-                                    <field name='quantity'/>
-                                    <field name='price'/>
-                                </tree>
-                            </field>
-                            <group class='oe_subtotal_footer oe_right'>
-                                <field name='total_price' widget='monetary' digits='(3,0)'
-                                       options="{'currency_field': '43'}"/>
+                        <group string="List Order" colspan="4" col="4">
+                            <group style="width:70%%">
+                                <field name="order_detail_ids" nolabel="1"
+                                       attrs="{'readonly':[('status','!=','order')]}">
+                                    <tree editable="false" create="false">
+                                        <field name='product_id'/>
+                                        <field name='quantity'/>
+                                        <field name='price'/>
+                                    </tree>
+                                </field>
                             </group>
-                        </group>
-                        <group>
-                            <span>
-                                <button string="Return" type="object" name="order" class="oe_highlight oe_right"
-                                        attrs="{'invisible':[('status','=','order')]}"/>
-                                <button string="Payment" type="object" name="payment"
-                                        class="oe_highlight oe_right"
-                                        attrs="{'invisible':[('status','=','payment')]}"/>
-                            </span>
+                            <group class="oe_right">
+                                <field name='total_price' style="width:150%%"/>
+                                <field name="pay" style="width:150%%"
+                                       attrs="{'invisible':['|',('status','=','order'),('status','=','cancel')],'readonly':[('status','=','paid')]}"/>
+                                <field name="repay" style="width:150%%"
+                                       attrs="{'invisible':['|',('status','=','order'),('status','=','cancel')],'readonly':[('status','=','paid')]}"/>
+                                <span>
+                                    <button string="Payment" type="object" name="payment" class="oe_highlight"
+                                            attrs="{'invisible':[('status','!=','order')]}"/>
+                                    <button string="Paid and print" type="object" name="paid" class="oe_highlight"
+                                            attrs="{'invisible':[('status','!=','payment')]}"/>
+                                    <button string="Return" type="object" name="order" class="oe_highlight"
+                                            attrs="{'invisible':[('status','!=','payment')]}"/>
+                                </span>
+                            </group>
                         </group>
                     </sheet>
                     <div class="oe_chatter">

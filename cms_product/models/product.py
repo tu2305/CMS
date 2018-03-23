@@ -14,6 +14,6 @@ class ProductCategory(models.Model):
     product_category = fields.Many2one('cms.product.category', 'Product Category', required=True,
                                        track_visibility='onchange')
     image = fields.Binary("Image", attachment=True)
-    price = fields.Integer('Price', required=True, track_visibility='onchange')
+    price = fields.Float('Price', required=True, digits=(3, 0), track_visibility='onchange')
     description = fields.Text('Description')
     active = fields.Boolean(default=True)

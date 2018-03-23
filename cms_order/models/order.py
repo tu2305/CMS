@@ -19,7 +19,9 @@ class Order(models.Model):
                                           default=lambda self: self.env['cms.product.category'].search([])[0])
     product_id = fields.Many2one('cms.product', 'Product', domain="[('product_category','=',product_category_id)]")
     order_detail_ids = fields.One2many('cms.order.detail', 'order_id', 'Product(s)')
-    total_price = fields.Integer('Total Price', compute='_compute_total_price')
+    total_price = fields.Float('Total Price', digits=(3, 0), compute='_compute_total_price', default=0)
+    pay = fields.Float('Pay', required=True, digits=(3, 0))
+    repay = fields.Float('Repay', digits=(3, 0), compute='_compute_repay')
     status = fields.Selection([('order', 'Order'), ('payment', 'Payment'), ('paid', 'Paid'), ('cancel', 'Cancel')],
                               default="order")
 
@@ -48,6 +50,12 @@ class Order(models.Model):
             self.total_price += record.quantity * record.price
 
     @api.multi
+    @api.depends('total_price', 'pay')
+    def _compute_repay(self):
+        if self.pay > self.total_price:
+            self.repay = self.pay - self.total_price
+
+    @api.multi
     def choose_product_button(self):
         values = []
         if len(self.order_detail_ids) > 0:
@@ -63,8 +71,13 @@ class Order(models.Model):
 
     @api.multi
     def order(self):
+        self.pay = 0
         self.status = 'order'
 
     @api.multi
     def payment(self):
         self.status = 'payment'
+
+    @api.multi
+    def paid(self):
+        self.status = 'paid'

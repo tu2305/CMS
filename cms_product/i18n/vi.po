@@ -1,0 +1,103 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* cms_product
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-23 04:45+0000\n"
+"PO-Revision-Date: 2018-03-23 04:45+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: cms_product
+#: model:ir.model.fields,field_description:cms_product.field_cms_product_active
+msgid "Active"
+msgstr "Có hiệu lực"
+
+#. module: cms_product
+#: model:ir.model.fields,field_description:cms_product.field_cms_product_category_create_uid
+#: model:ir.model.fields,field_description:cms_product.field_cms_product_create_uid
+msgid "Created by"
+msgstr "Được tạo bởi"
+
+#. module: cms_product
+#: model:ir.model.fields,field_description:cms_product.field_cms_product_category_create_date
+#: model:ir.model.fields,field_description:cms_product.field_cms_product_create_date
+msgid "Created on"
+msgstr "Thời điểm tạo"
+
+#. module: cms_product
+#: model:ir.model.fields,field_description:cms_product.field_cms_product_description
+msgid "Description"
+msgstr "Miêu tả"
+
+#. module: cms_product
+#: model:ir.model.fields,field_description:cms_product.field_cms_product_category_display_name
+#: model:ir.model.fields,field_description:cms_product.field_cms_product_display_name
+msgid "Display Name"
+msgstr "Tên hiển thị"
+
+#. module: cms_product
+#: model:ir.model.fields,field_description:cms_product.field_cms_product_category_id
+#: model:ir.model.fields,field_description:cms_product.field_cms_product_id
+msgid "ID"
+msgstr "ID"
+
+#. module: cms_product
+#: model:ir.model.fields,field_description:cms_product.field_cms_product_image
+msgid "Image"
+msgstr "Hình ảnh"
+
+#. module: cms_product
+#: model:ir.model.fields,field_description:cms_product.field_cms_product___last_update
+#: model:ir.model.fields,field_description:cms_product.field_cms_product_category___last_update
+msgid "Last Modified on"
+msgstr "Sửa lần cuối vào"
+
+#. module: cms_product
+#: model:ir.model.fields,field_description:cms_product.field_cms_product_category_write_uid
+#: model:ir.model.fields,field_description:cms_product.field_cms_product_write_uid
+msgid "Last Updated by"
+msgstr "Cập nhật lần cuối bởi"
+
+#. module: cms_product
+#: model:ir.model.fields,field_description:cms_product.field_cms_product_category_write_date
+#: model:ir.model.fields,field_description:cms_product.field_cms_product_write_date
+msgid "Last Updated on"
+msgstr "Cập nhật lần cuối vào"
+
+#. module: cms_product
+#: model:ir.model.fields,field_description:cms_product.field_cms_product_price
+msgid "Price"
+msgstr "Đơn giá"
+
+#. module: cms_product
+#: model:ir.actions.act_window,name:cms_product.act_open_product_view
+#: model:ir.model,name:cms_product.model_cms_product
+#: model:ir.model.fields,field_description:cms_product.field_cms_product_name
+#: model:ir.ui.menu,name:cms_product.menu_product_root
+#: model:ir.ui.menu,name:cms_product.menu_product_sub
+#: model:ir.ui.view,arch_db:cms_product.view_product_form
+#: model:ir.ui.view,arch_db:cms_product.view_product_search
+#: model:ir.ui.view,arch_db:cms_product.view_product_tree
+msgid "Product"
+msgstr "Đồ uống"
+
+#. module: cms_product
+#: model:ir.actions.act_window,name:cms_product.act_open_product_category_view
+#: model:ir.model,name:cms_product.model_cms_product_category
+#: model:ir.model.fields,field_description:cms_product.field_cms_product_category_name
+#: model:ir.model.fields,field_description:cms_product.field_cms_product_product_category
+#: model:ir.ui.menu,name:cms_product.menu_product_category_sub
+#: model:ir.ui.view,arch_db:cms_product.view_product_category_form
+#: model:ir.ui.view,arch_db:cms_product.view_product_category_search
+#: model:ir.ui.view,arch_db:cms_product.view_product_category_tree
+msgid "Product Category"
+msgstr "Loại đồ uống"
+
